@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<link href="https://fonts.cdnfonts.com/css/la-unica" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/thumbs-down" rel="stylesheet">
+<title>API Eduardo Monkey</title>
+</head>
+<body>
+  <div style="margin :20px;">
+    <nav class="nav navbar-light" style ="background-color: black;"> 
+        <div class="container">
+            <a class="navbar-brand" href="index.html" style="color:rgb(248, 214, 62);">Inicio</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="nav navbar-nav">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Unidad 1</a>
+                        <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                    href="perfil.html">Perfil</a><br>
+                    <a class="dropdown-item"
+                    href="calculadora.html">Calculadora</a><br>
+                    <a class="dropdown-item"
+                    href="TiendaPedido.html">Tienda parte 1</a>
+
+                    </div>
+                        
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false" >Unidad 2</a>
+                        <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                    href="tiendapedido.html">tienda pedido</a><br>
+                    <a class="dropdown-item"
+                    href="json.html">json</a><br>
+                    <a class="dropdown-item"
+                    href="tiendapedido2.html">Tienda parte 2</a>
+
+                    </div>
+                        
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false" >Unidad 3</a>
+                        <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                     class="dropdown-item"
+                    href="basededatos.html">base de datos</a><br>
+                    <a class="dropdown-item"
+                    href="peliculas.html">peliculas</a>
+
+                    </div>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<style>
+  body {
+    background-color: #7e00e6;
+    font-family:'Times New Roman', Times, serif;
+    color: white;
+  }
+  h1 {
+    font-size: 36px;
+    color:rgb(0, 255, 55);
+    text-shadow: 2px 2px 4px #000000;
+    text-align: center;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  li {
+    margin: 20px;
+    text-align: center;
+  }
+  img {
+    width: 220px;
+    height: 230px;
+    border-radius: 45%;
+    display: block;
+    margin-bottom: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  }
+  .nombre-personaje {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+</style>
+<h1>Seccion: Episodios</h1>
+<ul id="episodios"></ul>
+<h1>Seccion: Personajes</h1>
+<ul id="personajes"></ul>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  fetch('https://rickandmortyapi.com/api/episode')
+    .then(res => res.json())
+    .then(data => {
+      const episodios = data.results;
+      const listaEpisodios = document.getElementById('episodios');
+
+      episodios.forEach(episodio => {
+        const li = document.createElement('li');
+        li.textContent =`Episodio ${episodio.episode}: ${episodio.name}`;
+        li.style.fontSize = '20px';
+        listaEpisodios.appendChild(li);
+      });
+    });
+
+  fetch('https://rickandmortyapi.com/api/character')
+    .then(response => response.json())
+    .then(data => {
+      const personajes = data.results;
+      const listaPersonajes = document.getElementById('personajes');
+
+      personajes.forEach(personaje => {
+        const li = document.createElement('li');
+        const img = document.createElement('img');
+        img.src = personaje.image; 
+        img.alt = personaje.name;
+        li.classList.add('text-center');
+        li.innerHTML = `
+          <img src="${personaje.image}" alt="${personaje.name}" title="${personaje.name}">
+          <div class="nombre-personaje">${personaje.name}</div>
+        `;
+        listaPersonajes.appendChild(li);
+      });
+    });
+});
+</script>
+</body>
+</html>
